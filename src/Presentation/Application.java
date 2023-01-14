@@ -63,7 +63,7 @@ public class Application {
             switch (option){
                 case 1 :  System.out.println(produits.getAll());break;
                 case 2 :  searchByID();break;
-                case 3 : nouveauProduit();break;
+                case 3 : nouveauProduit();produits.saveAll();break;
                 case 4 : removeProduit();break;
 
             }

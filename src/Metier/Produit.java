@@ -1,6 +1,8 @@
 package Metier;
 
-public class Produit {
+import java.io.Serializable;
+
+public class Produit implements Serializable {
     private long id;
     private String nom;
     private String marque;

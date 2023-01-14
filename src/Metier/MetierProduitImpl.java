@@ -3,10 +3,11 @@ package Metier;
 import Metier.IMetier;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetierProduitImpl implements IMetier<Produit> {
+public class MetierProduitImpl implements IMetier<Produit>, Serializable {
 
     List <Produit> listProduit = new ArrayList();
 
@@ -18,7 +19,35 @@ public class MetierProduitImpl implements IMetier<Produit> {
     @Override
     public List<Produit> getAll() {
 
-        return listProduit;
+        try {
+            File file = new File("produits.txt");
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInput ois = new ObjectInputStream(fis);
+
+            List<Produit> produitList = (List<Produit>)ois.readObject();
+
+            return produitList;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void saveAll(){
+        try {
+            File file = new File("produits.txt");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+                oos.writeObject(listProduit);
+
+            oos.close();
+            fos.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
